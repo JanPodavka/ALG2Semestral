@@ -1,4 +1,4 @@
-package App;
+package app;
 
 public interface Watching {
     /*
@@ -7,7 +7,7 @@ public interface Watching {
     https://github.com/JanPodavka
     */
 
-    public String getName();
+    String getName();
 
 
 }

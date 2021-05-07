@@ -1,6 +1,6 @@
-package App;
+package app;
 
-public class Film implements Watching {
+public class Series implements Watching {
      /*
     doc
     @Jan Podávka
@@ -11,6 +11,5 @@ public class Film implements Watching {
     public String getName() {
         return null;
     }
-
 
 }
