@@ -8,5 +8,9 @@ public interface Watching {
     */
 
     String getName();
-
+    String getWatched();
+    String getRating();
+    String getDuration();
+    String getIndex();
+    String getGenre();
 }

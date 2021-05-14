@@ -9,7 +9,7 @@ public class TVShows implements Watching {
     https://github.com/JanPodavka
     */
 //data
-    private seasons[] seasons;
+    private Seasons[] seasons;
     private int rating;
     private String title;
     private boolean watched;
@@ -19,7 +19,7 @@ public class TVShows implements Watching {
 
 //constructors
 
-    public TVShows(seasons[] seasons, int rating, String title, boolean watched, int index, String genre) {
+    public TVShows(Seasons[] seasons, int rating, String title, boolean watched, int index, String genre) {
         this.seasons = seasons;
         this.rating = rating;
         this.title = title;
@@ -35,12 +35,41 @@ public class TVShows implements Watching {
         this.genre = genre;
         this.duration = duration;
     }
+    //geters and setters
 
-    //methods
     @Override
     public String getName() {
-        return null;
+        return title;
     }
+
+    @Override
+    public String getWatched() {
+        return String.valueOf(watched);
+    }
+
+    @Override
+    public String getRating() {
+        return String.valueOf(rating);
+    }
+
+    @Override
+    public String getDuration() {
+        return String.valueOf(duration);
+    }
+
+    @Override
+    public String getIndex() {
+        return String.valueOf(index);
+    }
+
+    @Override
+    public String getGenre() {
+        return genre;
+    }
+
+
+    //methods
+
 
     @Override
     public String toString() {

@@ -26,10 +26,36 @@ public class Film implements Watching {
         this.index = index;
         this.genre = genre;
     }
+//getters and setters
 
     @Override
     public String getName() {
-        return null;
+        return title;
+    }
+
+    @Override
+    public String getWatched() {
+        return String.valueOf(watched);
+    }
+
+    @Override
+    public String getRating() {
+        return String.valueOf(rating);
+    }
+
+    @Override
+    public String getDuration() {
+        return String.valueOf(duration);
+    }
+
+    @Override
+    public String getIndex() {
+        return String.valueOf(index);
+    }
+
+    @Override
+    public String getGenre() {
+        return genre;
     }
 
     @Override

@@ -1,6 +1,6 @@
 package app;
 
-public class seasons {
+public class Seasons {
     /*
     doc
     @Jan Podávka
@@ -13,10 +13,10 @@ private boolean watched;
 
 //constructors
 
-    public seasons(){
+    public Seasons(){
     }
 
-    public seasons(Episode[] episodes, int rating, boolean watched) {
+    public Seasons(Episode[] episodes, int rating, boolean watched) {
         this.episodes = episodes;
         this.rating = rating;
         this.watched = watched;
