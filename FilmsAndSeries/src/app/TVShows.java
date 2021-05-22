@@ -9,7 +9,7 @@ public class TVShows implements Watching {
     https://github.com/JanPodavka
     */
 //data
-    private Seasons[] seasons;
+    public Seasons[] seasons;
     private int rating;
     private String title;
     private boolean watched;
@@ -67,6 +67,13 @@ public class TVShows implements Watching {
         return genre;
     }
 
+    public Seasons[] getSeasons() {
+        return seasons;
+    }
+
+    public void setSeasons(Seasons[] seasons) {
+        this.seasons = seasons;
+    }
 
     //methods
 

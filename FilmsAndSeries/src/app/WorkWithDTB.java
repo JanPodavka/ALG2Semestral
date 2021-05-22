@@ -15,7 +15,7 @@ public class WorkWithDTB {
     /**
      * @param path - path to init DTB
      * @return Read file from given path
-     * ! DTB must be in this format ! :
+     * ! netDTB must be in this format ! :
      * show_id	type	title	date_added	release_year	duration	listed_in
      * delimiter is ;
      */

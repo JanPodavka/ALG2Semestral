@@ -7,19 +7,20 @@ public class Seasons {
     https://github.com/JanPodavka
     */
 //data
-private Episode[] episodes;
+
 private int rating;
 private boolean watched;
+private int episodes;
 
 //constructors
 
     public Seasons(){
     }
 
-    public Seasons(Episode[] episodes, int rating, boolean watched) {
-        this.episodes = episodes;
+    public Seasons(int episodes ,int rating, boolean watched) {
         this.rating = rating;
         this.watched = watched;
+        this.episodes = episodes;
     }
 
     //geters and setters
@@ -29,5 +30,14 @@ private boolean watched;
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    @Override
+    public String toString() {
+        return "Seasons{" +
+                "rating=" + rating +
+                ", watched=" + watched +
+                ", episodes=" + episodes +
+                '}';
     }
 }
