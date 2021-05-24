@@ -19,47 +19,33 @@ public class User {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    //methods
-
     /**
      * Factory method
-     * @param name name
+     *
+     * @param name     name
      * @param password psw
      * @return New user
      */
-    public static User addUser(String name, String password){
-        return new User(name,password);
+    public static User addUser(String name, String password) {
+        return new User(name, password);
     }
 
     /**
-     * @param name username
+     * @param name     username
      * @param password pswd
      * @return New User, if is the name already used, return null
      * @throws IOException if file cannot be edited
      */
-    public static User register(String name,String password) throws IOException { //načíst ntf databázi + přidat vše do vlastní databáze + vytvořit úvodní user a dtbUsers
+    public static User register(String name, String password, int choice) throws IOException {
         String path = WorkWithDTB.getActualPath() + "/FilmsAndSeries/src/utils/UsersDTB.csv";
         BufferedWriter bw = new BufferedWriter(
-                new FileWriter(path,true));
+                new FileWriter(path, true));
         ArrayList<User> users = loadUsers();
-        if (isNotThere(users,name)){
+        if (isNotThere(users, name) && choice == 1) { //if name is free and i want to register
             bw.write("\n" + name + ";" + password);
+            bw.close();
+            return User.addUser(name, password);
+        } else if (verify(users,name,password) && choice == 2) {
             bw.close();
             return User.addUser(name,password);
         }
@@ -80,28 +66,52 @@ public class User {
         ArrayList<User> users = new ArrayList<>();
         while ((line = br.readLine()) != null) {
             String[] parts = line.split(";");
-            User user = User.addUser(parts[0],parts[1]);
+            User user = User.addUser(parts[0], parts[1]);
             users.add(user);
         }
         return users;
     }
+
     /**
-     *
      * @param users arraylist of users
-     * @param name name of new user
+     * @param name  name of new user
      * @return True = if the given name is free
-     *         False = if name is already used
+     * False = if name is already used
      */
-    public static boolean isNotThere(ArrayList<User> users,String name){
-        for (User a :users) {
-            if (Objects.equals(a.getName(),name)){
+    public static boolean isNotThere(ArrayList<User> users, String name) {
+        for (User a : users) {
+            if (Objects.equals(a.getName(), name)) {
                 return false;
             }
         }
         return true;
     }
-    public static void login(){
 
+    //methods
+
+    public static boolean verify(ArrayList<User> users, String name, String password) {
+        for (User a : users) {
+            if (Objects.equals(a.getName(), name) && Objects.equals(a.getPassword(), password)) {
+                return true;
+            }
+        }
+        return false;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
+

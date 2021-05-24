@@ -14,13 +14,23 @@ public class UILogic {
     public static Scanner sc = new Scanner(System.in);
 
 
+
+    public static void welcomeScreen(){
+        System.out.println("**************************************************************");
+        System.out.println("*                  Databáze Seriálů a filmů                  *");
+        System.out.println("*  1. Registace                                              *");
+        System.out.println("*  2. Přihlášení                                             *");
+        System.out.println("*  3. Ukončit program                                        *");
+        System.out.println("**************************************************************");
+        System.out.println("Zadejte volbu: ");
+    }
     /**
-     * @return a = 1 for login
-     * 2 for register
+     * @return a = 1 for registration
+     * 2 for login
      * 3 for exit
      */
     public static int login() {
-        System.out.println("Chcete se příhlásit stisknětě 1,pro registraci stiskněte 2, 3 pro exit");
+        welcomeScreen();
         int a;
 
         while ((a = sc.nextInt()) != 3) {
@@ -38,28 +48,23 @@ public class UILogic {
         String name;
         String password;
         switch (choice) {
-            case 1 -> {
-                //funkce pro načtení uživatelovi databáze
+            case 1,2 -> {                 //funkce pro načtení ntf databaze + založení vlastní dtb
                 System.out.println("Zadej jméno");
                 name = sc.next();
                 System.out.println("Zadej heslo");
                 password = sc.next();
-                User activeUser = User.register(name,password);
-                if(activeUser != null){
+                User activeUser = User.register(name,password,choice);
+                if(activeUser != null){ //succesful login or register
                     System.out.println("Vítej " + activeUser.getName() + " !");
                 }
-                else {
+                else if(choice == 1){ //error if user is already registred
                     System.out.println("Uživatelské jméno je již zabrané !");
                 }
+                else{
+                    System.out.println("Špatné uživatelské jméno nebo heslo");
+                }
+                //metoda kde se vytvoří uživatelova(název souboru se jmenem dtb a načte se k ní ntf databáze
                 return activeUser;
-            }
-            case 2 -> {
-                //funkce pro načtení ntf databaze + založení vlastní dtb
-                System.out.println("Zadej jméno");
-                name = sc.next();
-                System.out.println("Zadej heslo");
-                password = sc.next();
-                return null;
             }
             case 3 -> {
                 System.out.println("program ukončen");

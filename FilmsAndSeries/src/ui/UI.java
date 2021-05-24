@@ -14,8 +14,11 @@ public class UI {
     public static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) throws IOException {
         WorkWithDTB.initDTBs(); //check if user file already existed,if not create admin accountS
-       int choice = UILogic.login();
-        UILogic.loginMenu(choice);
+        int choice;
+        do {
+            choice = UILogic.login();
+            UILogic.loginMenu(choice);
+        }while(choice != 3);
         System.out.println("\n Konec programu");
 
     }

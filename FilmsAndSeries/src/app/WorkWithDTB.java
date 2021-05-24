@@ -90,12 +90,14 @@ public class WorkWithDTB {
 
     }
 
+    /**If UserDTB isnt exist, create it with admin account
+     * @throws IOException if file cannot be opened
+     */
     public static void initDTBs() throws IOException {
         String path = getActualPath() + "/FilmsAndSeries/src/utils/UsersDTB.csv";
         File file = new File(path);
         if(!file.exists()){
-            BufferedWriter bw = new BufferedWriter(
-                    new FileWriter(file));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(file));
             bw.write("root;admin");
             bw.close();
         }
