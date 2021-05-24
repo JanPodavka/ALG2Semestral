@@ -45,7 +45,7 @@ public class User {
             bw.write("\n" + name + ";" + password);
             bw.close();
             return User.addUser(name, password);
-        } else if (verify(users,name,password) && choice == 2) {
+        } else if (verify(users,name,password) && choice == 2) { //if is already existed and you want to login, only return you
             bw.close();
             return User.addUser(name,password);
         }
@@ -96,6 +96,11 @@ public class User {
             }
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Uživatel " + name + " má uživatelské heslo: " + password;
     }
 
     public String getName() {

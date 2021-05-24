@@ -14,7 +14,7 @@ public class UILogic {
     public static Scanner sc = new Scanner(System.in);
 
 
-
+//text void methods
     public static void welcomeScreen(){
         System.out.println("**************************************************************");
         System.out.println("*                  Databáze Seriálů a filmů                  *");
@@ -24,6 +24,19 @@ public class UILogic {
         System.out.println("**************************************************************");
         System.out.println("Zadejte volbu: ");
     }
+    public static void afterLoginMenu(String name){
+        System.out.println("**************************************************************");
+        System.out.println("                      "+ "Vítej "+ name + " !"                 );
+        System.out.println("**************************************************************");
+        System.out.println("*                                                            *");
+        System.out.println("*                       1. Přidat film/seriál                *");
+        System.out.println("*                       2. Upravit                           *");
+        System.out.println("*                       3. Ukončit program                   *");
+        System.out.println("**************************************************************");
+        System.out.println("Zadejte volbu: ");
+    }
+
+//logic methods
     /**
      * @return a = 1 for registration
      * 2 for login
@@ -44,34 +57,24 @@ public class UILogic {
         }
         return 3;
     }
-    public static User loginMenu(int choice) throws IOException {
+    public static User getActiveUser(int choice) throws IOException {
         String name;
         String password;
         switch (choice) {
-            case 1,2 -> {                 //funkce pro načtení ntf databaze + založení vlastní dtb
+            case 1,2 -> {
                 System.out.println("Zadej jméno");
                 name = sc.next();
                 System.out.println("Zadej heslo");
                 password = sc.next();
-                User activeUser = User.register(name,password,choice);
-                if(activeUser != null){ //succesful login or register
-                    System.out.println("Vítej " + activeUser.getName() + " !");
-                }
-                else if(choice == 1){ //error if user is already registred
-                    System.out.println("Uživatelské jméno je již zabrané !");
-                }
-                else{
-                    System.out.println("Špatné uživatelské jméno nebo heslo");
-                }
-                //metoda kde se vytvoří uživatelova(název souboru se jmenem dtb a načte se k ní ntf databáze
-                return activeUser;
+                return User.register(name,password,choice);
             }
-            case 3 -> {
-                System.out.println("program ukončen");
+            default-> {
                 return null;
             }
         }
-        return null;
+    }
+    public static int loadChoice(){
+        return sc.nextInt();
     }
 
 
