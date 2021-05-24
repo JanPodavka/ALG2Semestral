@@ -19,10 +19,6 @@ public class WorkWithDTB {
         return Paths.get("").toAbsolutePath().toString();
     }
 
-    public static void main(String[] args) {
-
-    }
-
 
     /**
      * @param path - path to init DTB
@@ -31,7 +27,7 @@ public class WorkWithDTB {
      * show_id	type	title	date_added	release_year	duration	listed_in
      * delimiter is ;
      */
-    public static ArrayList<Watching> initDTB(String path, boolean ownDTB) {
+    public static ArrayList<Watching> makeDTB(String path, boolean ownDTB) {
         //buffer init
         try {
             File dtb = new File(path);
@@ -94,7 +90,15 @@ public class WorkWithDTB {
 
     }
 
-    public static void InitDTBs(){
+    public static void initDTBs() throws IOException {
+        String path = getActualPath() + "/FilmsAndSeries/src/utils/UsersDTB.csv";
+        File file = new File(path);
+        if(!file.exists()){
+            BufferedWriter bw = new BufferedWriter(
+                    new FileWriter(file));
+            bw.write("root;admin");
+            bw.close();
+        }
 
     }
 
