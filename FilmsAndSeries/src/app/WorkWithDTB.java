@@ -1,6 +1,7 @@
 package app;
 
 import java.io.*;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -10,6 +11,17 @@ public class WorkWithDTB {
     @Jan Podávka
     https://github.com/JanPodavka
     */
+
+    /**
+     * @return actual project path
+     */
+    public static String getActualPath(){
+        return Paths.get("").toAbsolutePath().toString();
+    }
+
+    public static void main(String[] args) {
+
+    }
 
 
     /**
@@ -22,10 +34,10 @@ public class WorkWithDTB {
     public static ArrayList<Watching> initDTB(String path, boolean ownDTB) {
         //buffer init
         try {
-            File netflixDTB = new File(path);
-            BufferedReader br = new BufferedReader(new FileReader(netflixDTB));
+            File dtb = new File(path);
+            BufferedReader br = new BufferedReader(new FileReader(dtb));
             ArrayList<Watching> films = new ArrayList<>();
-            //variable init
+            //variable init g
             String line;
             int index = 1;
             String category;
@@ -36,7 +48,7 @@ public class WorkWithDTB {
             int rating = 0;
             Watching add;
             br.readLine(); //skip the first line
-            //Objects making
+            //
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(";");
                 if (!ownDTB) { //if it is netflix DTB
@@ -82,8 +94,11 @@ public class WorkWithDTB {
 
     }
 
-    public static void main(String[] args) {
+    public static void InitDTBs(){
 
     }
+
+
+
 
 }
