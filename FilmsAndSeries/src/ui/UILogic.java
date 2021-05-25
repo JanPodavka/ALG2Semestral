@@ -5,6 +5,9 @@ import app.Watching;
 import app.WorkWithDTB;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -21,6 +24,8 @@ public class UILogic {
     public static void welcomeScreen() {
         System.out.println("**************************************************************");
         System.out.println("*                  Databáze Seriálů a filmů                  *");
+        System.out.println("**************************************************************");
+        System.out.println("*                                         "+ actualTime() +" ");
         System.out.println("*  1. Registace                                              *");
         System.out.println("*  2. Přihlášení                                             *");
         System.out.println("*  3. Ukončit program                                        *");
@@ -32,6 +37,7 @@ public class UILogic {
         System.out.println("**************************************************************");
         System.out.println("                      " + "Vítej " + name + " !");
         System.out.println("**************************************************************");
+        System.out.println("*                                         "+ actualTime() +" ");
         System.out.println("*                                                            *");
         System.out.println("*                       1. Přidat film/seriál                *");
         System.out.println("*                       2. Upravit                           *");
@@ -99,8 +105,10 @@ public class UILogic {
         }
     }
 
-    public static int loadChoice() {
-        return sc.nextInt();
+    public static StringBuilder actualTime() {
+        LocalDateTime dateTime = LocalDateTime.now();
+        StringBuilder myString = new StringBuilder();
+        return myString.append(dateTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG, FormatStyle.SHORT)));
     }
 
 
