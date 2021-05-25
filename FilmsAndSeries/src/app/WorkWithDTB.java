@@ -52,11 +52,7 @@ public class WorkWithDTB {
                     rating = Integer.parseInt(parts[4]);
                     duration = Integer.parseInt(parts[5]);
                 }
-                if (Objects.equals(category, "Movie")) { //if it is a movie
-                    add = new Film(title, watched, rating, duration, index, genre);
-                } else { //if it is a TV show
-                    add = new TVShows(title, watched, rating, duration, index, genre);
-                }
+                add = filmsOrShows(category,title,watched,rating,duration,index,genre);
                 index++;
                 films.add(add);
             }
@@ -96,6 +92,13 @@ public class WorkWithDTB {
 
     }
 
+    public static Watching filmsOrShows(String category, String title, boolean watched, int rating, int duration, int index, String genre){
+        if (Objects.equals(category, "Movie")) { //if it is a movie
+            return new Film(title, watched, rating, duration, index, genre);
+        } else { //if it is a TV show
+            return new TVShows(title, watched, rating, duration, index, genre);
+        }
+    }
 
 
 

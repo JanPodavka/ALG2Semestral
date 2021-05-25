@@ -67,6 +67,8 @@ public class TVShows implements Watching {
         return genre;
     }
 
+
+
     public Seasons[] getSeasons() {
         return seasons;
     }

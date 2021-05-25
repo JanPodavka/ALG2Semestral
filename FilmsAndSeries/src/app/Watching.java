@@ -13,4 +13,5 @@ public interface Watching {
     String getDuration();
     String getIndex();
     String getGenre();
+
 }

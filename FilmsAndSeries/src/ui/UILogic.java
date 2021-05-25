@@ -1,8 +1,11 @@
 package ui;
 
 import app.User;
+import app.Watching;
+import app.WorkWithDTB;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UILogic {
@@ -14,8 +17,8 @@ public class UILogic {
     public static Scanner sc = new Scanner(System.in);
 
 
-//text void methods
-    public static void welcomeScreen(){
+    //text void methods
+    public static void welcomeScreen() {
         System.out.println("**************************************************************");
         System.out.println("*                  Databáze Seriálů a filmů                  *");
         System.out.println("*  1. Registace                                              *");
@@ -24,9 +27,10 @@ public class UILogic {
         System.out.println("**************************************************************");
         System.out.println("Zadejte volbu: ");
     }
-    public static void afterLoginMenu(String name){
+
+    public static void afterLoginMenu(String name) {
         System.out.println("**************************************************************");
-        System.out.println("                      "+ "Vítej "+ name + " !"                 );
+        System.out.println("                      " + "Vítej " + name + " !");
         System.out.println("**************************************************************");
         System.out.println("*                                                            *");
         System.out.println("*                       1. Přidat film/seriál                *");
@@ -36,7 +40,27 @@ public class UILogic {
         System.out.println("Zadejte volbu: ");
     }
 
+    public static Watching addShowMenu(ArrayList<Watching> dtb) {
+        System.out.println("Movie nebo serial ? ");
+        String category = sc.next();
+        System.out.println("Zadejte název seriálu/filmu: ");
+        sc.nextLine();
+        String title = sc.nextLine();
+        System.out.println("Již zhlédnuto ? 1-ano 0-ne ");
+        int watched = sc.nextInt();
+        System.out.println("Délka (v min/seriích)");
+        int duration = sc.nextInt();
+        System.out.println("hodnocení od 1-10");
+        int rating = sc.nextInt();
+        System.out.println("Žanry");
+        sc.nextLine();
+        String genre = sc.nextLine();
+        assert dtb != null;
+        return WorkWithDTB.filmsOrShows(category, title, (watched == 1), rating, duration, dtb.size() + 1, genre);
+    }
+
 //logic methods
+
     /**
      * @return a = 1 for registration
      * 2 for login
@@ -57,23 +81,25 @@ public class UILogic {
         }
         return 3;
     }
+
     public static User getActiveUser(int choice) throws IOException {
         String name;
         String password;
         switch (choice) {
-            case 1,2 -> {
+            case 1, 2 -> {
                 System.out.println("Zadej jméno");
                 name = sc.next();
                 System.out.println("Zadej heslo");
                 password = sc.next();
-                return User.register(name,password,choice);
+                return User.register(name, password, choice);
             }
-            default-> {
+            default -> {
                 return null;
             }
         }
     }
-    public static int loadChoice(){
+
+    public static int loadChoice() {
         return sc.nextInt();
     }
 
