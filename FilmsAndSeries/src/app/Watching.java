@@ -1,6 +1,8 @@
 package app;
 
-public interface Watching {
+import javax.swing.text.StyledEditorKit;
+
+public interface Watching{
     /*
     doc
     @Jan Podávka
@@ -13,5 +15,9 @@ public interface Watching {
     String getDuration();
     String getIndex();
     String getGenre();
+
+    void setWatched(boolean watched);
+    void setRating(int rating);
+    void setDuration(int duration);
 
 }

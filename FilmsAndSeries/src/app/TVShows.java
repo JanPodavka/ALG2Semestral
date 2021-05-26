@@ -1,7 +1,5 @@
 package app;
 
-import java.util.Arrays;
-
 public class TVShows implements Watching {
      /*
     doc
@@ -9,7 +7,6 @@ public class TVShows implements Watching {
     https://github.com/JanPodavka
     */
 //data
-    public Seasons[] seasons;
     private int rating;
     private String title;
     private boolean watched;
@@ -19,8 +16,7 @@ public class TVShows implements Watching {
 
 //constructors
 
-    public TVShows(Seasons[] seasons, int rating, String title, boolean watched, int index, String genre) {
-        this.seasons = seasons;
+    public TVShows(int rating, String title, boolean watched, int index, String genre) {
         this.rating = rating;
         this.title = title;
         this.watched = watched;
@@ -67,17 +63,20 @@ public class TVShows implements Watching {
         return genre;
     }
 
-
-
-    public Seasons[] getSeasons() {
-        return seasons;
+    @Override
+    public void setWatched(boolean watched) {
+        this.watched = watched;
     }
 
-    public void setSeasons(Seasons[] seasons) {
-        this.seasons = seasons;
+    @Override
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
-    //methods
+    @Override
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
 
 
     @Override
@@ -86,7 +85,6 @@ public class TVShows implements Watching {
                 "title='" + title + '\'' +
                 ", watched=" + watched +
                 ", rating=" + rating +
-                ", series=" + Arrays.toString(seasons) +
                 ", duration='" + duration+"seasons" + '\'' +
                 ", index=" + index +
                 ", genre='" + genre + "} \n \n";

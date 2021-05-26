@@ -2,8 +2,8 @@ package app;
 
 import java.io.*;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Objects;
+import java.text.Collator;
+import java.util.*;
 
 public class WorkWithDTB {
     /*
@@ -26,7 +26,7 @@ public class WorkWithDTB {
      * show_id	type	title	date_added	release_year	duration	listed_in
      * delimiter is ;
      */
-    public static ArrayList<Watching> loadDTB(String path, boolean ownDTB) {
+    public static ArrayList<Watching> loadDTB(String path, boolean ownDTB) throws NumberFormatException{
         //buffer init
         try {
             File dtb = new File(path);
@@ -35,7 +35,7 @@ public class WorkWithDTB {
             //variable init g
             String line;
             int index = 1;
-            String category;String title;int duration;String genre;
+            String category;String title;int duration = 0;String genre;
             boolean watched = false;
             int rating = 0;
             Watching add;
@@ -51,11 +51,12 @@ public class WorkWithDTB {
                     watched = Boolean.parseBoolean(parts[3]);
                     rating = Integer.parseInt(parts[4]);
                     duration = Integer.parseInt(parts[5]);
-                }
+                };
                 add = filmsOrShows(category,title,watched,rating,duration,index,genre);
+                System.out.println(add);
                 index++;
                 films.add(add);
-            }
+                }
             br.close();
             return films;
         } catch (IOException e) {
@@ -67,7 +68,7 @@ public class WorkWithDTB {
 
     public static void saveToMyDTB(ArrayList<Watching> seznam,String name) throws IOException {
         BufferedWriter bw = new BufferedWriter(
-                new FileWriter(getActualPath() + "/FilmsAndSeries/src/utils/" + name + "DTB.csv",true));
+                new FileWriter(getActualPath() + "/FilmsAndSeries/src/utils/" + name + "DTB.csv"));
         bw.write("index;type;name;watched;rating;duration;genre\n");
         for (Watching film : seznam) {
             String isMovie = (film instanceof Film ? "Movie" : "TV show"); //Instance of Film or TVshow ?
@@ -100,6 +101,25 @@ public class WorkWithDTB {
         }
     }
 
+    //Comparing
+    public static ArrayList<Watching> filterWatched(ArrayList<Watching> dtb){
+        ArrayList<Watching> films = new ArrayList<>();
+        for (Watching film:dtb) {
+            if(Boolean.parseBoolean(film.getWatched())){
+                films.add(film);
+            }
+        }
+        return films;
+    }
 
+
+
+    public static ArrayList<Watching> sortByRating(ArrayList<Watching> dtb) {
+
+        ArrayList<Watching> sortedDTB = new ArrayList<>(dtb);
+        Collections.sort(sortedDTB, Comparator.comparingInt(o -> Integer.parseInt(o.getRating())));
+
+        return sortedDTB;
+    }
 
 }

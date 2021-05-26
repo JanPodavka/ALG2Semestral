@@ -58,6 +58,20 @@ public class Film implements Watching {
         return genre;
     }
 
+    @Override
+    public void setWatched(boolean watched) {
+        this.watched = watched;
+    }
+
+    @Override
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    @Override
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
 
 
     @Override
