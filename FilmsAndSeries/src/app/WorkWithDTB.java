@@ -2,7 +2,6 @@ package app;
 
 import java.io.*;
 import java.nio.file.Paths;
-import java.text.Collator;
 import java.util.*;
 
 public class WorkWithDTB {
@@ -53,7 +52,6 @@ public class WorkWithDTB {
                     duration = Integer.parseInt(parts[5]);
                 };
                 add = filmsOrShows(category,title,watched,rating,duration,index,genre);
-                System.out.println(add);
                 index++;
                 films.add(add);
                 }
@@ -82,7 +80,7 @@ public class WorkWithDTB {
     /**If UserDTB isnt exist, create it with admin account
      * @throws IOException if file cannot be opened
      */
-    public static void initDTBs() throws IOException {
+        public static void initDTBs() throws IOException {
         String path = getActualPath() + "/FilmsAndSeries/src/utils/UsersDTB.csv";
         File file = new File(path);
         if(!file.exists()){
@@ -102,7 +100,7 @@ public class WorkWithDTB {
     }
 
     //Comparing
-    public static ArrayList<Watching> filterWatched(ArrayList<Watching> dtb){
+        public static ArrayList<Watching> filterWatched(ArrayList<Watching> dtb){
         ArrayList<Watching> films = new ArrayList<>();
         for (Watching film:dtb) {
             if(Boolean.parseBoolean(film.getWatched())){
@@ -111,8 +109,6 @@ public class WorkWithDTB {
         }
         return films;
     }
-
-
 
     public static ArrayList<Watching> sortByRating(ArrayList<Watching> dtb) {
 

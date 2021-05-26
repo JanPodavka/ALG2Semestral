@@ -41,12 +41,14 @@ public class UILogic {
         System.out.println("*                                                            *");
         System.out.println("*                       1. Přidat film/seriál                *");
         System.out.println("*                       2. Upravit                           *");
-        System.out.println("*                       3. Ukončit program                   *");
+        System.out.println("*                       3. Seřadit a zobrazit                *");
+        System.out.println("*                       4. Ukončit program                   *");
+
         System.out.println("**************************************************************");
         System.out.println("Zadejte volbu: ");
     }
 
-    public static Watching addShowMenu(ArrayList<Watching> dtb) {
+        public static Watching addShowMenu(ArrayList<Watching> dtb) {
         System.out.println("Movie nebo serial ? ");
         String category = sc.next();
         System.out.println("Zadejte název seriálu/filmu: ");
@@ -110,6 +112,7 @@ public class UILogic {
         StringBuilder myString = new StringBuilder();
         return myString.append(dateTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG, FormatStyle.SHORT)));
     }
+
 
 
 

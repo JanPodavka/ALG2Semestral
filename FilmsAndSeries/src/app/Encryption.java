@@ -15,7 +15,7 @@ import java.util.Base64;
 
 public class Encryption {
 
-public static final String key = "TajnyklickmojiDB"; // klič k DTB [84, 97, 106, 110, 121, 107, 108, 105, 99, 107, 109, 111, 106, 105, 68, 66]
+    public static final String key = "TajnyklickmojiDB"; // klič k DTB [84, 97, 106, 110, 121, 107, 108, 105, 99, 107, 109, 111, 106, 105, 68, 66] //16b
 
     /**
      * @param password String password
@@ -32,7 +32,6 @@ public static final String key = "TajnyklickmojiDB"; // klič k DTB [84, 97, 106
 
         cipher.init(Cipher.ENCRYPT_MODE, aesKey);
         return cipher.doFinal(password.getBytes());
-        //new String(encrypted); použít pro čtení
     }
 
     /**
@@ -55,12 +54,10 @@ public static final String key = "TajnyklickmojiDB"; // klič k DTB [84, 97, 106
     public static void main(String[] args) throws IllegalBlockSizeException, NoSuchPaddingException, BadPaddingException, NoSuchAlgorithmException, InvalidKeyException {
         Key aesKey = new SecretKeySpec(key.getBytes(), "AES"); // na 128bit code
         Cipher cipher = Cipher.getInstance("AES"); //vytvoří instanci cipher
-        byte[] secret = encrypt("Honza",cipher,aesKey);
-        String secredString = new String(secret);
-        String normal = decrypt(secret,aesKey,cipher);
-        //String normal = decrypt("��עix��",cipherkey,descipher);
+        byte[] secret = encrypt("Honza test",cipher,aesKey);
         System.out.println(Arrays.toString(secret));
-        System.out.println();
+        System.out.println(new String(secret));
+        String normal = decrypt(secret,aesKey,cipher);
         System.out.println(normal);
 
 
