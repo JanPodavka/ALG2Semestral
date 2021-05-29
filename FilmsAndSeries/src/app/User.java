@@ -1,7 +1,14 @@
 package app;
 
+import javax.crypto.*;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
+import java.security.InvalidKeyException;
+import java.security.Key;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.Objects;
 
 public class User {
@@ -36,16 +43,20 @@ public class User {
      * @return New User, if is the name already used, return null
      * @throws IOException if file cannot be edited
      */
-    public static User register(String name, String password, int choice) throws IOException {
+    public static User register(String name, String password, int choice) throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException, IllegalBlockSizeException {
+        Key aesKey = new SecretKeySpec(Encryption.key.getBytes(), "AES"); //for ecryption
+        Cipher cipher = Cipher.getInstance("AES"); //vytvoří instanci cipher
         String path = WorkWithDTB.getActualPath() + "/FilmsAndSeries/src/utils/UsersDTB.csv";
         BufferedWriter bw = new BufferedWriter(
                 new FileWriter(path, true));
         ArrayList<User> users = loadUsers();
+        byte[] secret = Encryption.encrypt(password,cipher,aesKey); //zde se zašifruje heslo
+        String cipheredPSW= Base64.getEncoder().encodeToString(secret);
         if (isNotThere(users, name) && choice == 1) { //if name is free and i want to register
-            bw.write("\n" + name + ";" + password);
+            bw.write("\n" + name + ";" + cipheredPSW);
             bw.close();
             return User.addUser(name, password);
-        } else if (verify(users,name,password) && choice == 2) { //if is already existed and you want to login, only return you
+        } else if (verify(users,name,cipheredPSW) && choice == 2) { //if is already existed and you want to login, only return you
             bw.close();
             return User.addUser(name,password);
         }
@@ -58,7 +69,9 @@ public class User {
      * @return Arraylist with already registred users
      * @throws IOException if file cannot be readed
      */
-    public static ArrayList<User> loadUsers() throws IOException {
+    public static ArrayList<User> loadUsers() throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException, IllegalBlockSizeException {
+        Key aesKey = new SecretKeySpec(Encryption.key.getBytes(), "AES"); //for ecryption
+        Cipher cipher = Cipher.getInstance("AES");
         String path = WorkWithDTB.getActualPath() + "/FilmsAndSeries/src/utils/UsersDTB.csv";
         File usersDTB = new File(path);
         BufferedReader br = new BufferedReader(new FileReader(usersDTB));
@@ -66,9 +79,13 @@ public class User {
         ArrayList<User> users = new ArrayList<>();
         while ((line = br.readLine()) != null) {
             String[] parts = line.split(";");
+            byte[] decodedKey = Base64.getDecoder().decode(parts[1]);
+            SecretKey originalKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
+            Encryption.decrypt(originalKey.getEncoded(),aesKey,cipher);
             User user = User.addUser(parts[0], parts[1]);
             users.add(user);
         }
+        br.close();
         return users;
     }
 

@@ -51,7 +51,7 @@ public class Encryption {
         Key aesKey = new SecretKeySpec(key.getBytes(), "AES"); // na 128bit code // znám vždy
         System.out.println(Arrays.toString(aesKey.getEncoded()));
         Cipher cipher = Cipher.getInstance("AES"); //vytvoří instanci cipher
-        byte[] secret = encrypt("Honza test",cipher,aesKey); //zde se zašifruje heslo
+        byte[] secret = encrypt("admin",cipher,aesKey); //zde se zašifruje heslo
         System.out.println(Arrays.toString(secret));;
 /////////////////////////////////////////////////////////
         String encodedKey = Base64.getEncoder().encodeToString(secret);
@@ -60,6 +60,7 @@ public class Encryption {
         SecretKey originalKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
         System.out.println(Arrays.toString(originalKey.getEncoded()));
         System.out.println(decrypt(originalKey.getEncoded(),aesKey,cipher));
+        String test = decrypt(originalKey.getEncoded(),aesKey,cipher);
 
 
 

@@ -5,7 +5,12 @@ import app.User;
 import app.Watching;
 import app.WorkWithDTB;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Objects;
@@ -19,7 +24,7 @@ public class UIApp {
     */
     public static Scanner sc = new Scanner(System.in);
 
-    public static void main(String[] args) throws IOException, NumberFormatException,InputMismatchException{
+    public static void main(String[] args) throws IOException, NumberFormatException, InputMismatchException, InvalidKeyException, BadPaddingException, NoSuchAlgorithmException, IllegalBlockSizeException, NoSuchPaddingException {
         WorkWithDTB.initDTBs(); //check if user file already existed,if not create admin accountS
         int choice;
         ArrayList<Watching> dtb = null;

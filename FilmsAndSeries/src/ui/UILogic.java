@@ -4,7 +4,12 @@ import app.User;
 import app.Watching;
 import app.WorkWithDTB;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -90,7 +95,7 @@ public class UILogic {
         return 3;
     }
 
-    public static User getActiveUser(int choice) throws IOException {
+    public static User getActiveUser(int choice) throws IOException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException {
         String name;
         String password;
         switch (choice) {

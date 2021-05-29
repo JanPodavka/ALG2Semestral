@@ -85,7 +85,7 @@ public class WorkWithDTB {
         File file = new File(path);
         if(!file.exists()){
             BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-            bw.write("root;admin");
+            bw.write("root;XxZQ6AIDGBTs8z2vrLdbCw=="); //16b encrypited word admin
             bw.close();
         }
 
