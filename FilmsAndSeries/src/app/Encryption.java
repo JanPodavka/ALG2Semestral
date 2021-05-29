@@ -4,8 +4,6 @@ package app;
 
 import javax.crypto.*;
 import javax.crypto.spec.SecretKeySpec;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
@@ -39,26 +37,35 @@ public class Encryption {
      * @param aesKey aeskey
      * @param cipher cipher
      * @return take array of ciphered password and transform
-     * @throws NoSuchPaddingException
-     * @throws NoSuchAlgorithmException
      * @throws InvalidKeyException
      * @throws BadPaddingException
      * @throws IllegalBlockSizeException
      */
-    public static String decrypt(byte[] enryptedPSWD,Key aesKey,Cipher cipher) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+    public static String decrypt(byte[] enryptedPSWD,Key aesKey,Cipher cipher) throws InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
         cipher.init(Cipher.DECRYPT_MODE, aesKey);
         String decrypted = new String(cipher.doFinal(enryptedPSWD));
         return decrypted;
    }
 
     public static void main(String[] args) throws IllegalBlockSizeException, NoSuchPaddingException, BadPaddingException, NoSuchAlgorithmException, InvalidKeyException {
-        Key aesKey = new SecretKeySpec(key.getBytes(), "AES"); // na 128bit code
+        Key aesKey = new SecretKeySpec(key.getBytes(), "AES"); // na 128bit code // znám vždy
+        System.out.println(Arrays.toString(aesKey.getEncoded()));
         Cipher cipher = Cipher.getInstance("AES"); //vytvoří instanci cipher
-        byte[] secret = encrypt("Honza test",cipher,aesKey);
-        System.out.println(Arrays.toString(secret));
-        System.out.println(new String(secret));
-        String normal = decrypt(secret,aesKey,cipher);
-        System.out.println(normal);
+        byte[] secret = encrypt("Honza test",cipher,aesKey); //zde se zašifruje heslo
+        System.out.println(Arrays.toString(secret));;
+/////////////////////////////////////////////////////////
+        String encodedKey = Base64.getEncoder().encodeToString(secret);
+        System.out.println(encodedKey);
+        byte[] decodedKey = Base64.getDecoder().decode(encodedKey);
+        SecretKey originalKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
+        System.out.println(Arrays.toString(originalKey.getEncoded()));
+        System.out.println(decrypt(originalKey.getEncoded(),aesKey,cipher));
+
+
+
+
+
+
 
 
 
