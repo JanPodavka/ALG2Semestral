@@ -40,7 +40,8 @@ public class UILogic {
         System.out.println("**************************************************************");
         System.out.println("Zadejte volbu: ");
     }
-        /**
+
+    /**
      * After login GUI
      */
     public static void afterLoginMenu(String name) {
@@ -58,9 +59,15 @@ public class UILogic {
         System.out.println("Zadejte volbu: ");
     }
 
+    /**
+     * Logic behind creating object
+     *
+     * @param dtb My dtb
+     * @return TVShow or Film object
+     */
     public static Watching addShowMenu(ArrayList<Watching> dtb) {
         System.out.println("Movie-1  nebo Serial-0 ? ");
-        String category = (UILogic.testIntInput1(0,1 ) == 1 ? "Movie" : "Serial");
+        String category = (UILogic.testIntInput1(0, 1) == 1 ? "Movie" : "Serial");
         System.out.println("Zadejte název seriálu/filmu: ");
         sc.nextLine();
         String title = sc.nextLine();
@@ -89,6 +96,16 @@ public class UILogic {
         return UILogic.testIntInput1(1, 3);
     }
 
+    /**
+     * @param choice choice from menu
+     * @return active user
+     * @throws IOException err
+     * @throws IllegalBlockSizeException err
+     * @throws InvalidKeyException err
+     * @throws BadPaddingException err
+     * @throws NoSuchAlgorithmException err
+     * @throws NoSuchPaddingException err
+     */
     public static User getActiveUser(int choice) throws IOException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException {
         String name;
         String password;
@@ -106,6 +123,9 @@ public class UILogic {
         }
     }
 
+    /**
+     * @return ActualTime as String builder
+     */
     public static StringBuilder actualTime() {
         LocalDateTime dateTime = LocalDateTime.now();
         StringBuilder myString = new StringBuilder();
@@ -115,8 +135,9 @@ public class UILogic {
 
     /**
      * Inf while until i get my wanted int number (works even for string)
+     *
      * @param downLim down limit of our wanted number
-     * @param upLim upper limit of our wanted number
+     * @param upLim   upper limit of our wanted number
      * @return specified int
      */
     public static int testIntInput1(int downLim, int upLim) {

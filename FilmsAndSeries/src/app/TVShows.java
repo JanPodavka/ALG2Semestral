@@ -1,14 +1,14 @@
 package app;
 
 public class TVShows implements Watching {
-     /*
-    doc
-    @Jan Podávka
-    https://github.com/JanPodavka
-    */
+    private final String title;
+    /*
+   doc
+   @Jan Podávka
+   https://github.com/JanPodavka
+   */
 //data
     private int rating;
-    private final String title;
     private boolean watched;
     private int duration;
     private int index;
@@ -23,7 +23,8 @@ public class TVShows implements Watching {
         this.index = index;
         this.genre = genre;
     }
-    public TVShows(String title,boolean watched, int rating,int duration, int index, String genre) {
+
+    public TVShows(String title, boolean watched, int rating, int duration, int index, String genre) {
         this.rating = rating;
         this.title = title;
         this.watched = watched;
@@ -44,13 +45,28 @@ public class TVShows implements Watching {
     }
 
     @Override
+    public void setWatched(boolean watched) {
+        this.watched = watched;
+    }
+
+    @Override
     public String getRating() {
         return String.valueOf(rating);
     }
 
     @Override
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+    @Override
     public String getDuration() {
         return String.valueOf(duration);
+    }
+
+    @Override
+    public void setDuration(int duration) {
+        this.duration = duration;
     }
 
     @Override
@@ -63,22 +79,6 @@ public class TVShows implements Watching {
         return genre;
     }
 
-    @Override
-    public void setWatched(boolean watched) {
-        this.watched = watched;
-    }
-
-    @Override
-    public void setRating(int rating) {
-        this.rating = rating;
-    }
-
-    @Override
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
-
     /**
      * @return String of our object info
      */
@@ -88,7 +88,7 @@ public class TVShows implements Watching {
                 "title='" + title + '\'' +
                 ", watched=" + watched +
                 ", rating=" + rating +
-                ", duration='" + duration+"seasons" + '\'' +
+                ", duration='" + duration + "seasons" + '\'' +
                 ", index=" + index +
                 ", genre='" + genre + "} \n \n";
     }

@@ -107,8 +107,9 @@ public class User {
 
     /**
      * if psw and name are correct,return true,otherwise correct
-     * @param users Arraylisto of users
-     * @param name name of actual user
+     *
+     * @param users    Arraylisto of users
+     * @param name     name of actual user
      * @param password psw of actual user
      * @return true if name and psw is correct
      */

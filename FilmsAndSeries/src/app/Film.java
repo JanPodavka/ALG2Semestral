@@ -15,10 +15,10 @@ public class Film implements Watching {
     private String genre;
 //constructors
 
-    public Film(){
+    public Film() {
     }
 
-    public Film(String title, boolean watched, int rating, int duration,int index,String genre) {
+    public Film(String title, boolean watched, int rating, int duration, int index, String genre) {
         this.title = title;
         this.watched = watched;
         this.rating = rating;
@@ -45,41 +45,19 @@ public class Film implements Watching {
     }
 
     /**
-     * @return rating
-     */
-    @Override
-    public String getRating() {
-        return String.valueOf(rating);
-    }
-    /**
-     * @return duration
-     */
-    @Override
-    public String getDuration() {
-        return String.valueOf(duration);
-    }
-
-    /**
-     * @return index
-     */
-    @Override
-    public String getIndex() {
-        return String.valueOf(index);
-    }
-    /**
-     * @return genre
-     */
-    @Override
-    public String getGenre() {
-        return genre;
-    }
-
-    /**
      * @param watched w
      */
     @Override
     public void setWatched(boolean watched) {
         this.watched = watched;
+    }
+
+    /**
+     * @return rating
+     */
+    @Override
+    public String getRating() {
+        return String.valueOf(rating);
     }
 
     /**
@@ -91,6 +69,14 @@ public class Film implements Watching {
     }
 
     /**
+     * @return duration
+     */
+    @Override
+    public String getDuration() {
+        return String.valueOf(duration);
+    }
+
+    /**
      * @param duration d
      */
     @Override
@@ -98,6 +84,21 @@ public class Film implements Watching {
         this.duration = duration;
     }
 
+    /**
+     * @return index
+     */
+    @Override
+    public String getIndex() {
+        return String.valueOf(index);
+    }
+
+    /**
+     * @return genre
+     */
+    @Override
+    public String getGenre() {
+        return genre;
+    }
 
     /**
      * @return String of our object info
@@ -108,8 +109,8 @@ public class Film implements Watching {
                 "title='" + title + '\'' +
                 ", watched=" + watched +
                 ", rating=" + rating +
-                ", duration='" + duration+"min" + '\'' +
+                ", duration='" + duration + "min" + '\'' +
                 ", index=" + index +
-                ", genre=" + genre +"\n \n";
+                ", genre=" + genre + "\n \n";
     }
 }

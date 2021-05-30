@@ -10,14 +10,15 @@ public class Sorting {
     @Jan Podávka
     https://github.com/JanPodavka
     */
+
     /**
      * @param dtb array list of actual films and serials
      * @return only already wathced films
      */
-    public static ArrayList<Watching> filterWatched(ArrayList<Watching> dtb){
+    public static ArrayList<Watching> filterWatched(ArrayList<Watching> dtb) {
         ArrayList<Watching> films = new ArrayList<>();
-        for (Watching film:dtb) {
-            if(Boolean.parseBoolean(film.getWatched())){
+        for (Watching film : dtb) {
+            if (Boolean.parseBoolean(film.getWatched())) {
                 films.add(film);
             }
         }

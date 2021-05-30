@@ -81,7 +81,7 @@ public class UIApp {
                     if (UILogic.testIntInput1(1, 2) == 1) {
                         System.out.println("Zadejte index: ");
                         assert dtb != null;
-                        index = UILogic.testIntInput1(1,dtb.size());
+                        index = UILogic.testIntInput1(1, dtb.size());
                     } else {
                         System.out.println("Zadejte název: ");
                         sc.nextLine();

@@ -1,6 +1,6 @@
 package app;
 
-public interface Watching{
+public interface Watching {
     /*
     doc
     @Jan Podávka
@@ -8,14 +8,21 @@ public interface Watching{
     */
 
     String getName();
+
     String getWatched();
-    String getRating();
-    String getDuration();
-    String getIndex();
-    String getGenre();
 
     void setWatched(boolean watched);
+
+    String getRating();
+
     void setRating(int rating);
+
+    String getDuration();
+
     void setDuration(int duration);
+
+    String getIndex();
+
+    String getGenre();
 
 }
