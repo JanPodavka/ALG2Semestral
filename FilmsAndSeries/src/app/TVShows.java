@@ -8,7 +8,7 @@ public class TVShows implements Watching {
     */
 //data
     private int rating;
-    private String title;
+    private final String title;
     private boolean watched;
     private int duration;
     private int index;
@@ -79,6 +79,9 @@ public class TVShows implements Watching {
     }
 
 
+    /**
+     * @return String of our object info
+     */
     @Override
     public String toString() {
         return "TVShows{" +

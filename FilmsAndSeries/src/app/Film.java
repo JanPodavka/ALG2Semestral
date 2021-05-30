@@ -28,52 +28,80 @@ public class Film implements Watching {
     }
 //getters and setters
 
+    /**
+     * @return name
+     */
     @Override
     public String getName() {
         return title;
     }
 
+    /**
+     * @return watched
+     */
     @Override
     public String getWatched() {
         return String.valueOf(watched);
     }
 
+    /**
+     * @return rating
+     */
     @Override
     public String getRating() {
         return String.valueOf(rating);
     }
-
+    /**
+     * @return duration
+     */
     @Override
     public String getDuration() {
         return String.valueOf(duration);
     }
 
+    /**
+     * @return index
+     */
     @Override
     public String getIndex() {
         return String.valueOf(index);
     }
-
+    /**
+     * @return genre
+     */
     @Override
     public String getGenre() {
         return genre;
     }
 
+    /**
+     * @param watched w
+     */
     @Override
     public void setWatched(boolean watched) {
         this.watched = watched;
     }
 
+    /**
+     * @param rating r
+     */
     @Override
     public void setRating(int rating) {
         this.rating = rating;
     }
 
+    /**
+     * @param duration d
+     */
     @Override
     public void setDuration(int duration) {
         this.duration = duration;
     }
 
 
+    /**
+     * @return String of our object info
+     */
     @Override
     public String toString() {
         return "Film{" +

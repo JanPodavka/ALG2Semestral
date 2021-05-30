@@ -7,7 +7,6 @@ import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Base64;
 import java.util.Objects;
 
@@ -50,15 +49,15 @@ public class User {
         BufferedWriter bw = new BufferedWriter(
                 new FileWriter(path, true));
         ArrayList<User> users = loadUsers();
-        byte[] secret = Encryption.encrypt(password,cipher,aesKey); //zde se zašifruje heslo
-        String cipheredPSW= Base64.getEncoder().encodeToString(secret);
+        byte[] secret = Encryption.encrypt(password, cipher, aesKey); //zde se zašifruje heslo
+        String cipheredPSW = Base64.getEncoder().encodeToString(secret);
         if (isNotThere(users, name) && choice == 1) { //if name is free and i want to register
             bw.write("\n" + name + ";" + cipheredPSW);
             bw.close();
             return User.addUser(name, password);
-        } else if (verify(users,name,cipheredPSW) && choice == 2) { //if is already existed and you want to login, only return you
+        } else if (verify(users, name, cipheredPSW) && choice == 2) { //if is already existed and you want to login, only return you
             bw.close();
-            return User.addUser(name,password);
+            return User.addUser(name, password);
         }
         bw.close();
         return null;
@@ -81,7 +80,7 @@ public class User {
             String[] parts = line.split(";");
             byte[] decodedKey = Base64.getDecoder().decode(parts[1]);
             SecretKey originalKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
-            Encryption.decrypt(originalKey.getEncoded(),aesKey,cipher);
+            Encryption.decrypt(originalKey.getEncoded(), aesKey, cipher);
             User user = User.addUser(parts[0], parts[1]);
             users.add(user);
         }
@@ -106,6 +105,13 @@ public class User {
 
     //methods
 
+    /**
+     * if psw and name are correct,return true,otherwise correct
+     * @param users Arraylisto of users
+     * @param name name of actual user
+     * @param password psw of actual user
+     * @return true if name and psw is correct
+     */
     public static boolean verify(ArrayList<User> users, String name, String password) {
         for (User a : users) {
             if (Objects.equals(a.getName(), name) && Objects.equals(a.getPassword(), password)) {

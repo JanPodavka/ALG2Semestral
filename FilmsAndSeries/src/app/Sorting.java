@@ -5,11 +5,16 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class Sorting {
+
     /*
     doc
     @Jan Podávka
     https://github.com/JanPodavka
     */
+    /**
+     * @param dtb array list of actual films and serials
+     * @return only already wathced films
+     */
     public static ArrayList<Watching> filterWatched(ArrayList<Watching> dtb){
         ArrayList<Watching> films = new ArrayList<>();
         for (Watching film:dtb) {
@@ -20,10 +25,14 @@ public class Sorting {
         return films;
     }
 
+    /**
+     * @param dtb arrayList of our DTB
+     * @return DTB sorted by rating
+     */
     public static ArrayList<Watching> sortByRating(ArrayList<Watching> dtb) {
 
         ArrayList<Watching> sortedDTB = new ArrayList<>(dtb);
-        Collections.sort(sortedDTB, Comparator.comparingInt(o -> Integer.parseInt(o.getRating())));
+        sortedDTB.sort(Comparator.comparingInt(o -> Integer.parseInt(o.getRating())));
 
         return sortedDTB;
     }

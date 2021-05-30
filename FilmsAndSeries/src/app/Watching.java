@@ -1,7 +1,5 @@
 package app;
 
-import javax.swing.text.StyledEditorKit;
-
 public interface Watching{
     /*
     doc

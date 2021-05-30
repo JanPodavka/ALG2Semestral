@@ -30,7 +30,7 @@ public class UILogic {
         System.out.println("**************************************************************");
         System.out.println("*                  Databáze Seriálů a filmů                  *");
         System.out.println("**************************************************************");
-        System.out.println("*                                         "+ actualTime() +" ");
+        System.out.println("*                                         " + actualTime() + " ");
         System.out.println("*  1. Registace                                              *");
         System.out.println("*  2. Přihlášení                                             *");
         System.out.println("*  3. Ukončit program                                        *");
@@ -42,7 +42,7 @@ public class UILogic {
         System.out.println("**************************************************************");
         System.out.println("                      " + "Vítej " + name + " !");
         System.out.println("**************************************************************");
-        System.out.println("*                                         "+ actualTime() +" ");
+        System.out.println("*                                         " + actualTime() + " ");
         System.out.println("*                                                            *");
         System.out.println("*                       1. Přidat film/seriál                *");
         System.out.println("*                       2. Upravit                           *");
@@ -53,18 +53,18 @@ public class UILogic {
         System.out.println("Zadejte volbu: ");
     }
 
-        public static Watching addShowMenu(ArrayList<Watching> dtb) {
-        System.out.println("Movie nebo serial ? ");
-        String category = sc.next();
+    public static Watching addShowMenu(ArrayList<Watching> dtb) {
+        System.out.println("Movie-1  nebo Serial-0 ? ");
+        String category = (UILogic.testIntInput1(0,1 ) == 1 ? "Movie" : "Serial");
         System.out.println("Zadejte název seriálu/filmu: ");
         sc.nextLine();
         String title = sc.nextLine();
-        System.out.println("Již zhlédnuto ? 1-ano 0-ne ");
-        int watched = sc.nextInt();
+        System.out.println("Již viděno ? 1-ano 0-ne ");
+        int watched = UILogic.testIntInput1(0, 1);
         System.out.println("Délka (v min/seriích)");
-        int duration = sc.nextInt();
+        int duration = UILogic.testIntInput1(1, Integer.MAX_VALUE);
         System.out.println("hodnocení od 1-10");
-        int rating = sc.nextInt();
+        int rating = UILogic.testIntInput1(1, 10);
         System.out.println("Žanry");
         sc.nextLine();
         String genre = sc.nextLine();
@@ -81,18 +81,7 @@ public class UILogic {
      */
     public static int login() {
         welcomeScreen();
-        int a;
-
-        while ((a = sc.nextInt()) != 3) {
-            if (a == 1) {
-                return a;
-            } else if (a == 2) {
-                return a;
-            } else {
-                System.out.println("Zadejte validní možnost !");
-            }
-        }
-        return 3;
+        return UILogic.testIntInput1(1, 3);
     }
 
     public static User getActiveUser(int choice) throws IOException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException {
@@ -119,6 +108,26 @@ public class UILogic {
     }
 
 
+    /**
+     * Inf while until i get my wanted int number (works even for string)
+     * @param downLim down limit of our wanted number
+     * @param upLim upper limit of our wanted number
+     * @return specified int
+     */
+    public static int testIntInput1(int downLim, int upLim) {
+        int tmp;
+        while (true) {
+            try {
+                tmp = Integer.parseInt(sc.next());
+                if (tmp <= upLim && tmp >= downLim) {
+                    return tmp;
+                }
+                System.out.println("Hodnota není v daném rozmezí,zkuste znovu");
+            } catch (NumberFormatException e) {
+                System.out.println("Špatný formát vstupní hodnoty");
+            }
+        }
+    }
 
 
 }

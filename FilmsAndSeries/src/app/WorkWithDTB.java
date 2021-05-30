@@ -2,7 +2,8 @@ package app;
 
 import java.io.*;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class WorkWithDTB {
     /*
@@ -14,7 +15,7 @@ public class WorkWithDTB {
     /**
      * @return actual project path
      */
-    public static String getActualPath(){
+    public static String getActualPath() {
         return Paths.get("").toAbsolutePath().toString();
     }
 
@@ -25,7 +26,7 @@ public class WorkWithDTB {
      * show_id	type	title	date_added	release_year	duration	listed_in
      * delimiter is ;
      */
-    public static ArrayList<Watching> loadDTB(String path, boolean ownDTB) throws NumberFormatException{
+    public static ArrayList<Watching> loadDTB(String path, boolean ownDTB) throws NumberFormatException {
         //buffer init
         try {
             File dtb = new File(path);
@@ -34,7 +35,10 @@ public class WorkWithDTB {
             //variable init g
             String line;
             int index = 1;
-            String category;String title;int duration = 0;String genre;
+            String category;
+            String title;
+            int duration;
+            String genre;
             boolean watched = false;
             int rating = 0;
             Watching add;
@@ -50,11 +54,11 @@ public class WorkWithDTB {
                     watched = Boolean.parseBoolean(parts[3]);
                     rating = Integer.parseInt(parts[4]);
                     duration = Integer.parseInt(parts[5]);
-                };
-                add = filmsOrShows(category,title,watched,rating,duration,index,genre);
+                }
+                add = filmsOrShows(category, title, watched, rating, duration, index, genre);
                 index++;
                 films.add(add);
-                }
+            }
             br.close();
             return films;
         } catch (IOException e) {
@@ -64,7 +68,14 @@ public class WorkWithDTB {
 
     }
 
-    public static void saveToMyDTB(ArrayList<Watching> seznam,String name) throws IOException {
+    /**
+     * Make user own DTB
+     *
+     * @param seznam Given arrayList
+     * @param name   ActiveUsername
+     * @throws IOException error
+     */
+    public static void saveToMyDTB(ArrayList<Watching> seznam, String name) throws IOException {
         BufferedWriter bw = new BufferedWriter(
                 new FileWriter(getActualPath() + "/FilmsAndSeries/src/utils/" + name + "DTB.csv"));
         bw.write("index;type;name;watched;rating;duration;genre\n");
@@ -77,13 +88,15 @@ public class WorkWithDTB {
 
     }
 
-    /**If UserDTB isnt exist, create it with admin account
+    /**
+     * If UserDTB isnt exist, create it with admin account
+     *
      * @throws IOException if file cannot be opened
      */
-        public static void initDTBs() throws IOException {
+    public static void initDTBs() throws IOException {
         String path = getActualPath() + "/FilmsAndSeries/src/utils/UsersDTB.csv";
         File file = new File(path);
-        if(!file.exists()){
+        if (!file.exists()) {
             BufferedWriter bw = new BufferedWriter(new FileWriter(file));
             bw.write("root;XxZQ6AIDGBTs8z2vrLdbCw=="); //16b encrypited word admin
             bw.close();
@@ -91,15 +104,25 @@ public class WorkWithDTB {
 
     }
 
-    public static Watching filmsOrShows(String category, String title, boolean watched, int rating, int duration, int index, String genre){
+    /**
+     * Create a new instance of a film or Movie
+     *
+     * @param category c
+     * @param title    t
+     * @param watched  w
+     * @param rating   r
+     * @param duration d
+     * @param index    i
+     * @param genre    g
+     * @return created instance
+     */
+    public static Watching filmsOrShows(String category, String title, boolean watched, int rating, int duration, int index, String genre) {
         if (Objects.equals(category, "Movie")) { //if it is a movie
             return new Film(title, watched, rating, duration, index, genre);
         } else { //if it is a TV show
             return new TVShows(title, watched, rating, duration, index, genre);
         }
     }
-
-    //Comparing
 
 
 }
