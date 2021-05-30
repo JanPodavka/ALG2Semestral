@@ -84,7 +84,7 @@ public class UIApp {
                         index = UILogic.testIntInput1(1, dtb.size());
                     } else {
                         System.out.println("Zadejte název: ");
-                        sc.nextLine();
+                        //sc.nextLine();
                         title = sc.nextLine();
                     }
                 } else if (choice == 3) {
@@ -111,8 +111,6 @@ public class UIApp {
             }
         } while (choice != 4);
         WorkWithDTB.saveToMyDTB(dtb, activeUser.getName()); //normální řazení
-        //ArrayList<Watching> sortedDTB = Sorting.sortByRating(dtb); //--test pro řazení dle hodnocení
-        //WorkWithDTB.saveToMyDTB(sortedDTB,activeUser.getName()); sorted řazení
 
     }
 }
