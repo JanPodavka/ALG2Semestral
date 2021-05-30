@@ -25,6 +25,9 @@ public class UILogic {
     public static Scanner sc = new Scanner(System.in);
 
 
+    /**
+     * Welcome menu gui
+     */
     //text void methods
     public static void welcomeScreen() {
         System.out.println("**************************************************************");
@@ -37,7 +40,9 @@ public class UILogic {
         System.out.println("**************************************************************");
         System.out.println("Zadejte volbu: ");
     }
-
+        /**
+     * After login GUI
+     */
     public static void afterLoginMenu(String name) {
         System.out.println("**************************************************************");
         System.out.println("                      " + "Vítej " + name + " !");
