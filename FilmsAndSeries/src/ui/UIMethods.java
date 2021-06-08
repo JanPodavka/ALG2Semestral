@@ -15,6 +15,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class UIMethods {
     /*
@@ -22,6 +25,9 @@ public class UIMethods {
     @Jan Podávka
     https://github.com/JanPodavka
     */
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+            Pattern.compile("^[A-Z]+\\.[A-Z]+@[A-Z]{3,8}+\\.[A-Z]{1,4}$", Pattern.CASE_INSENSITIVE);
+
     public static Scanner sc = new Scanner(System.in);
 
 
@@ -110,8 +116,13 @@ public class UIMethods {
         String password;
         switch (choice) {
             case 1, 2 -> {
-                System.out.println("Zadej jméno");
-                name = sc.next();
+                System.out.println("Zadej email");
+                do {
+                    name = sc.next();
+                    if(!validate(name)){
+                        System.out.println("Email musí být v následujícím formátu: jmeno.prijmeni@(3-8 znaků).(1-4 znaky)");
+                    }
+                }while (!validate(name));
                 System.out.println("Zadej heslo");
                 password = sc.next();
                 return User.register(name, password, choice);
@@ -204,6 +215,10 @@ public class UIMethods {
         } else {
             System.out.println(dtb.sortByRating());
         }
+    }
+    public static boolean validate(String email) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
+        return matcher.find();
     }
 
 }
