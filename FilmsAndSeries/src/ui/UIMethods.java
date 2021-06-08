@@ -2,7 +2,7 @@ package ui;
 
 import app.User;
 import app.Watching;
-import app.WorkWithDTB;
+import app.Database;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -13,10 +13,10 @@ import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
-public class UILogic {
+public class UIMethods {
     /*
     doc
     @Jan Podávka
@@ -65,23 +65,22 @@ public class UILogic {
      * @param dtb My dtb
      * @return TVShow or Film object
      */
-    public static Watching addShowMenu(ArrayList<Watching> dtb) {
+    public static Watching addShowMenu(Database dtb) {
         System.out.println("Movie-1  nebo Serial-0 ? ");
-        String category = (UILogic.testIntInput1(0, 1) == 1 ? "Movie" : "Serial");
+        String category = (UIMethods.testIntInput1(0, 1) == 1 ? "Movie" : "Serial");
         System.out.println("Zadejte název seriálu/filmu: ");
         sc.nextLine();
         String title = sc.nextLine();
         System.out.println("Již viděno ? 1-ano 0-ne ");
-        int watched = UILogic.testIntInput1(0, 1);
+        int watched = UIMethods.testIntInput1(0, 1);
         System.out.println("Délka (v min/seriích)");
-        int duration = UILogic.testIntInput1(1, Integer.MAX_VALUE);
+        int duration = UIMethods.testIntInput1(1, Integer.MAX_VALUE);
         System.out.println("hodnocení od 1-10");
-        int rating = UILogic.testIntInput1(1, 10);
+        int rating = UIMethods.testIntInput1(1, 10);
         System.out.println("Žanry");
         sc.nextLine();
         String genre = sc.nextLine();
-        assert dtb != null;
-        return WorkWithDTB.filmsOrShows(category, title, (watched == 1), rating, duration, dtb.size() + 1, genre);
+        return Database.filmsOrShows(category, title, (watched == 1), rating, duration, dtb.getSize() + 1, genre);
     }
 
 //logic methods
@@ -93,7 +92,7 @@ public class UILogic {
      */
     public static int login() {
         welcomeScreen();
-        return UILogic.testIntInput1(1, 3);
+        return UIMethods.testIntInput1(1, 3);
     }
 
     /**
@@ -132,7 +131,6 @@ public class UILogic {
         return myString.append(dateTime.format(DateTimeFormatter.ofLocalizedDateTime(FormatStyle.LONG, FormatStyle.SHORT)));
     }
 
-
     /**
      * Inf while until i get my wanted int number (works even for string)
      *
@@ -155,5 +153,57 @@ public class UILogic {
         }
     }
 
+    public static Database register(User activeUser) throws IOException {
+        if (activeUser != null) {
+            Database dtb = Database.loadDTB(Database.getActualPath() +
+                    "/FilmsAndSeries/src/utils/netflix_titles.csv", false);
+            dtb.saveToMyDTB(activeUser.getName());
+            return dtb;
+        } else {
+            System.out.println("Uživatelské jméno je již zabrané");
+        }
+        return null;
+    }
+    public static Database login(User activeUser) throws IOException {
+        if (activeUser != null) {
+            String path = Database.getActualPath() + "/FilmsAndSeries/src/utils/"
+                    + activeUser.getName() + "DTB.csv";
+            return Database.loadDTB(path, true);
+            //break;
+        } else {
+            System.out.println("Jméno nebo heslo nejsou správné");
+        }
+        return null;
+    }
+    public static void editShow(Database dtb){
+        System.out.println("Chcete soubor najít dle indexu -1 nebo názvu -2 ?");
+        String title = null;
+        int index = -1;
+        if (UIMethods.testIntInput1(1, 2) == 1) {
+            System.out.println("Zadejte index: ");
+            index = UIMethods.testIntInput1(1, dtb.getSize());
+        } else {
+            System.out.println("Zadejte název: ");
+            sc.nextLine();
+            title = sc.nextLine();
+        }
+        for (Watching film : dtb.getDtb()) {
+            if ((Integer.parseInt(film.getIndex()) == index) || Objects.equals(title, film.getName())) {
+                System.out.println("Už viděno ? 1 - ano 0 - ne");
+                film.setWatched((UIMethods.testIntInput1(0, 1) == 1));
+                System.out.println("Hodnocení ? 1-10");
+                film.setRating(UIMethods.testIntInput1(1, 10));
+            }
+        }
+    }
+    public static void filtershowed(Database dtb){
+        System.out.println("Seřadit podle hodnocení -0,seřadit a zobrazit pouze již viděné -1");
+        if (UIMethods.testIntInput1(0, 1) == 1) {
+            System.out.println(dtb.filterWatched());
+
+        } else {
+            System.out.println(dtb.sortByRating());
+        }
+    }
 
 }

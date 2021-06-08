@@ -45,7 +45,7 @@ public class User {
     public static User register(String name, String password, int choice) throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException, IllegalBlockSizeException {
         Key aesKey = new SecretKeySpec(Encryption.key.getBytes(), "AES"); //for ecryption
         Cipher cipher = Cipher.getInstance("AES"); //vytvoří instanci cipher
-        String path = WorkWithDTB.getActualPath() + "/FilmsAndSeries/src/utils/UsersDTB.csv";
+        String path = Database.getActualPath() + "/FilmsAndSeries/src/utils/UsersDTB.csv";
         BufferedWriter bw = new BufferedWriter(
                 new FileWriter(path, true));
         ArrayList<User> users = loadUsers();
@@ -71,7 +71,7 @@ public class User {
     public static ArrayList<User> loadUsers() throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException, IllegalBlockSizeException {
         Key aesKey = new SecretKeySpec(Encryption.key.getBytes(), "AES"); //for ecryption
         Cipher cipher = Cipher.getInstance("AES");
-        String path = WorkWithDTB.getActualPath() + "/FilmsAndSeries/src/utils/UsersDTB.csv";
+        String path = Database.getActualPath() + "/FilmsAndSeries/src/utils/UsersDTB.csv";
         File usersDTB = new File(path);
         BufferedReader br = new BufferedReader(new FileReader(usersDTB));
         String line;
@@ -139,7 +139,7 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(String password) { //later for forget password
         this.password = password;
     }
 }
